@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import userLogin from '../store/actions';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
@@ -29,9 +32,12 @@ class Login extends React.Component {
     }
   }
 
-  // handleClick = () => {
+  handleClick = () => {
+    const { emailValue } = this.state;
+    const { login } = this.props;
 
-  // }
+    login(emailValue);
+  }
 
   render() {
     const { emailValue, passwordValue, isDisabled } = this.state;
@@ -57,7 +63,7 @@ class Login extends React.Component {
           <Button
             buttonText="Entrar"
             disabled={ isDisabled }
-            // onClick={ this.handleClick }
+            onClick={ this.handleClick }
           />
         </form>
       </main>
@@ -65,4 +71,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (state) => dispatch(userLogin(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
