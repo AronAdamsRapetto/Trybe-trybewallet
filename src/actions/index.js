@@ -1,13 +1,13 @@
-import { LOGIN, FETCH_REQUEST, FETCH_FAIL } from './actionTypes';
+import { LOGIN, FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAIL } from './actionTypes';
 
 const apiRequest = () => ({
   type: FETCH_REQUEST,
 });
 
-// const fetchSuccess = (data) => ({
-//   type: FETCH_SUCCESS,
-//   payload: data,
-// });
+const fetchSuccess = (data) => ({
+  type: FETCH_SUCCESS,
+  payload: data,
+});
 
 const fetchFail = (error) => ({
   type: FETCH_FAIL,
@@ -19,9 +19,8 @@ export const fetchCurrencyApi = () => async (dispatch) => {
   try {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
-    const arrayData = Object.values(data);
-    // const filteredArrayData = arrayData.filter(({ currency }) => currency.codein !== 'BRLT');
-    console.log(arrayData);
+    const arrayData = Object.values(data).filter(({ codein }) => codein !== 'BRLT');
+    dispatch(fetchSuccess(arrayData));
   } catch (error) {
     dispatch(fetchFail(error));
   }
