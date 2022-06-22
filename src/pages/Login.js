@@ -13,6 +13,8 @@ class Login extends React.Component {
     this.setState({ [name]: value }, this.loginValidate);
   }
 
+  // Regex para validação de email consultada no link abaixo.
+  // https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
   loginValidate = () => {
     const { emailValue, passwordValue } = this.state;
 
