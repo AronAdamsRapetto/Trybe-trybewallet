@@ -6,10 +6,25 @@ class Login extends React.Component {
   state = {
     emailValue: '',
     passwordValue: '',
+    isDisabled: true,
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, this.loginValidate);
+  }
+
+  loginValidate = () => {
+    const { emailValue, passwordValue } = this.state;
+
+    const regex = /\S+@\S+\.\S+/;
+    const isEmailValid = regex.test(emailValue);
+    const MIN_PASSWORD_LENGTH = 6;
+
+    if (passwordValue.length >= MIN_PASSWORD_LENGTH && isEmailValid) {
+      this.setState({ isDisabled: false });
+    } else {
+      this.setState({ isDisabled: true });
+    }
   }
 
   // handleClick = () => {
@@ -17,7 +32,7 @@ class Login extends React.Component {
   // }
 
   render() {
-    const { emailValue, passwordValue } = this.state;
+    const { emailValue, passwordValue, isDisabled } = this.state;
     return (
       <main>
         <form>
@@ -27,6 +42,7 @@ class Login extends React.Component {
             name="emailValue"
             value={ emailValue }
             onChange={ this.handleChange }
+            testId="email-input"
           />
           <Input
             type="password"
@@ -34,9 +50,11 @@ class Login extends React.Component {
             name="passwordValue"
             value={ passwordValue }
             onChange={ this.handleChange }
+            testId="password-input"
           />
           <Button
             buttonText="Entrar"
+            disabled={ isDisabled }
             // onClick={ this.handleClick }
           />
         </form>
