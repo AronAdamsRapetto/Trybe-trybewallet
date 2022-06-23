@@ -1,0 +1,12 @@
+.input-whithout-label {
+  margin: 10px;
+}
+
+.input-whithout-label input {
+  background-color: #efefef;
+  border: none;
+  border-radius: 3px;
+  font-weight: 400;
+  padding: 10px 0 10px 15px;
+  width: 190px;
+}

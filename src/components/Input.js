@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styleSheet/Input.css';
 
 class Input extends React.Component {
   render() {
@@ -14,7 +15,10 @@ class Input extends React.Component {
       labelText,
     } = this.props;
     return (
-      <label htmlFor={ id }>
+      <label
+        htmlFor={ id }
+        className={ labelText === '' ? 'input-whithout-label' : 'input-with-label' }
+      >
         { labelText }
         <input
           type={ type }
