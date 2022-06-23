@@ -15,6 +15,7 @@ class ExpenseForm extends React.Component {
     method: '',
     tag: '',
     isDisable: true,
+    id: 0,
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -34,6 +35,7 @@ class ExpenseForm extends React.Component {
 
   handleClick = () => {
     const { saveExpense } = this.props;
+    const { id } = this.state;
     const newState = { ...this.state };
     delete newState.isDisable;
     saveExpense(newState);
@@ -45,6 +47,7 @@ class ExpenseForm extends React.Component {
       method: '',
       tag: '',
       isDisable: true,
+      id: id + 1,
     });
   }
 

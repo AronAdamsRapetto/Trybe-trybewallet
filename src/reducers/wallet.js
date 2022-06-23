@@ -14,10 +14,6 @@ const INITIAL_STATE = {
   error: '',
 };
 
-const RADIX_GENERATE_ID = 36;
-
-// Idéia para gerar um id aleatório retirada do link abaixo:
-// https://codigofonte.org/gerando-id-aleatorio-em-javascript/
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case FETCH_SUCCESS:
@@ -33,7 +29,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, {
         ...action.payload,
-        id: Math.floor(Date.now() * Math.random()).toString(RADIX_GENERATE_ID),
       }],
     };
   case REMOVE_EXPENSE:
