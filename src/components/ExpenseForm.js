@@ -6,6 +6,7 @@ import Select from './Select';
 import Button from './Button';
 import { paymentMethods, expenseTags } from '../data';
 import { fetchExpense, saveEditExpense } from '../actions';
+import './styleSheet/ExpenseForm.css';
 
 class ExpenseForm extends React.Component {
   state = {
@@ -60,7 +61,7 @@ class ExpenseForm extends React.Component {
     const { currencies, isEditing } = this.props;
     const { value, description, currency, method, tag, isDisable } = this.state;
     return (
-      <form>
+      <form className="expense-form-container">
         <Input
           type="number"
           placeholder="2300,00"

@@ -10,3 +10,11 @@
   padding: 10px 0 10px 15px;
   width: 190px;
 }
+
+.input-whith-label input {
+  border: none;
+  border-radius: 3px;
+  margin: 0 8px;
+  padding: 8px 0 8px 15px;
+  width: 190px;
+}

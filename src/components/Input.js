@@ -17,7 +17,7 @@ class Input extends React.Component {
     return (
       <label
         htmlFor={ id }
-        className={ labelText === '' ? 'input-whithout-label' : 'input-with-label' }
+        className={ labelText === '' ? 'input-whithout-label' : 'input-whith-label' }
       >
         { labelText }
         <input

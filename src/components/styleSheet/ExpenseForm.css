@@ -1,0 +1,8 @@
+.expense-form-container {
+  align-items: center;
+  background-color: #222;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
