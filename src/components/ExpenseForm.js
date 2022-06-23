@@ -34,7 +34,9 @@ class ExpenseForm extends React.Component {
 
   handleClick = () => {
     const { saveExpense } = this.props;
-    saveExpense(this.state);
+    const newState = { ...this.state };
+    delete newState.isDisable;
+    saveExpense(newState);
 
     this.setState({
       value: '',
