@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeExpense } from '../actions';
 import Button from './Button';
 
 class TableRows extends React.Component {
-  handleClick = ({ target: { textContent } }) => {
-    console.log(textContent);
+  handleClick = ({ target: { textContent } }, id) => {
+    const { remove } = this.props;
+
+    if (textContent === 'Excluir') {
+      remove(id);
+    }
   }
 
   render() {
@@ -14,6 +20,7 @@ class TableRows extends React.Component {
       method,
       value,
       currency,
+      id,
       exchangeRates: {
         [currency]: {
           ask,
@@ -32,8 +39,15 @@ class TableRows extends React.Component {
         <td>{ (value * ask).toFixed(2) }</td>
         <td>Real</td>
         <td>
-          <Button buttonText="Excluír" onClick={ this.handleClick } />
-          <Button buttonText="Editar" onClick={ this.handleClick } />
+          <Button
+            buttonText="Excluir"
+            onClick={ (event) => this.handleClick(event, id) }
+            data-testid="delete-btn"
+          />
+          <Button
+            buttonText="Editar"
+            onClick={ (event) => this.handleClick(event, id) }
+          />
         </td>
       </tr>
     );
@@ -47,8 +61,14 @@ TableRows.propTypes = {
     method: PropTypes.string,
     tag: PropTypes.string,
     currency: PropTypes.string,
+    id: PropTypes.number,
     exchangeRates: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
+  remove: PropTypes.func.isRequired,
 };
 
-export default TableRows;
+const mapDispatchToProps = (dispatch) => ({
+  remove: (state) => dispatch(removeExpense(state)),
+});
+
+export default connect(null, mapDispatchToProps)(TableRows);

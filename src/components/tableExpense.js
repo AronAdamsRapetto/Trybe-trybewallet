@@ -41,8 +41,4 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   prop: (state) => dispatch(),
-// });
-
 export default connect(mapStateToProps)(TableExpense);

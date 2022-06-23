@@ -1,4 +1,9 @@
-import { FETCH_SUCCESS, FETCH_FAIL, ADD_EXPENSE } from '../actions/actionTypes';
+import {
+  FETCH_SUCCESS,
+  FETCH_FAIL,
+  ADD_EXPENSE,
+  REMOVE_EXPENSE,
+} from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -9,6 +14,10 @@ const INITIAL_STATE = {
   error: '',
 };
 
+const RADIX_GENERATE_ID = 36;
+
+// Idéia para gerar um id aleatório retirada do link abaixo:
+// https://codigofonte.org/gerando-id-aleatorio-em-javascript/
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case FETCH_SUCCESS:
@@ -24,8 +33,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, {
         ...action.payload,
-        id: state.expenses.length,
+        id: Math.floor(Date.now() * Math.random()).toString(RADIX_GENERATE_ID),
       }],
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.payload),
     };
   default:
     return state;

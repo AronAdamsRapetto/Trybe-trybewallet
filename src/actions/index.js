@@ -1,4 +1,10 @@
-import { LOGIN, FETCH_SUCCESS, FETCH_FAIL, ADD_EXPENSE } from './actionTypes';
+import {
+  LOGIN,
+  FETCH_SUCCESS,
+  FETCH_FAIL,
+  ADD_EXPENSE,
+  REMOVE_EXPENSE,
+} from './actionTypes';
 
 const fetchSuccess = (data) => ({
   type: FETCH_SUCCESS,
@@ -41,3 +47,8 @@ export const fetchExpense = (expense) => async (dispatch) => {
     dispatch(fetchFail(error));
   }
 };
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  payload: id,
+});
