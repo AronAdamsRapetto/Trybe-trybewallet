@@ -2,8 +2,7 @@ import { LOGIN, FETCH_SUCCESS, FETCH_FAIL, ADD_EXPENSE } from './actionTypes';
 
 const fetchSuccess = (data) => ({
   type: FETCH_SUCCESS,
-  currenciesType: Object.keys(data),
-  currenciesInfo: { ...data },
+  payload: Object.keys(data),
 });
 
 const fetchFail = (error) => ({
@@ -27,7 +26,18 @@ export const userLogin = (email) => ({
   payload: email,
 });
 
-export const saveExpense = (expense) => ({
+const saveExpense = (expense, exchange) => ({
   type: ADD_EXPENSE,
-  payload: { ...expense },
+  payload: { ...expense, exchangeRates: { ...exchange } },
 });
+
+export const fetchExpense = (expense) => async (dispatch) => {
+  try {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    delete data.USDT;
+    dispatch(saveExpense(expense, data));
+  } catch (error) {
+    dispatch(fetchFail(error));
+  }
+};

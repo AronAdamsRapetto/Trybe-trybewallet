@@ -5,7 +5,6 @@ const INITIAL_STATE = {
   expenses: [],
   editor: false,
   idToEdit: 0,
-  currenciesInfo: {},
   isFetching: true,
   error: '',
 };
@@ -15,8 +14,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case FETCH_SUCCESS:
     return {
       ...state,
-      currencies: [...action.currenciesType],
-      currenciesInfo: { ...action.currenciesInfo },
+      currencies: [...action.payload],
       isFetching: false,
     };
   case FETCH_FAIL:
@@ -24,12 +22,10 @@ const wallet = (state = INITIAL_STATE, action) => {
   case ADD_EXPENSE:
     return {
       ...state,
-      expenses: {
+      expenses: [...state.expenses, {
         ...action.payload,
-        exchangeRates: {
-          ...state.currenciesInfo,
-        },
-      },
+        id: state.expenses.length,
+      }],
     };
   default:
     return state;

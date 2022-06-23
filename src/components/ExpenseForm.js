@@ -3,32 +3,46 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
-// import Button from './Button';
+import Button from './Button';
 import { paymentMethods, expenseTags } from '../data';
+import { fetchExpense } from '../actions';
 
 class ExpenseForm extends React.Component {
   state = {
-    price: '',
+    value: '',
     description: '',
     currency: '',
-    paymentMethod: '',
-    expenseTag: '',
+    method: '',
+    tag: '',
   }
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   }
 
+  handleClick = () => {
+    const { saveExpense } = this.props;
+    saveExpense(this.state);
+
+    this.setState({
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    });
+  }
+
   render() {
     const { currencies } = this.props;
-    const { price, description, currency, paymentMethod, expenseTag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
         <Input
           type="number"
           placeholder="2300,00"
-          name="price"
-          value={ price }
+          name="value"
+          value={ value }
           onChange={ this.handleChange }
           testId="value-input"
           id="inputValue"
@@ -54,8 +68,8 @@ class ExpenseForm extends React.Component {
         />
         <Select
           options={ paymentMethods }
-          name="paymentMethod"
-          value={ paymentMethod }
+          name="method"
+          value={ method }
           onChange={ this.handleChange }
           id="selectMethod"
           labelText="Método de pagamento"
@@ -63,17 +77,17 @@ class ExpenseForm extends React.Component {
         />
         <Select
           options={ expenseTags }
-          name="expenseTag"
-          value={ expenseTag }
+          name="tag"
+          value={ tag }
           onChange={ this.handleChange }
           id="selectTag"
           labelText="Categoria"
           testId="tag-input"
         />
-        {/* <Button
+        <Button
           buttonText="Adicionar despesa"
-          onClick={  }
-        /> */}
+          onClick={ this.handleClick }
+        />
       </form>
     );
   }
@@ -81,10 +95,15 @@ class ExpenseForm extends React.Component {
 
 ExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  saveExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(ExpenseForm);
+const mapDispatchToProps = (dispatch) => ({
+  saveExpense: (state) => dispatch(fetchExpense(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
