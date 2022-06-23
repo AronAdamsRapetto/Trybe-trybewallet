@@ -14,10 +14,22 @@ class ExpenseForm extends React.Component {
     currency: '',
     method: '',
     tag: '',
+    isDisable: true,
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, this.validateForm);
+  }
+
+  validateForm = () => {
+    const state = Object.values(this.state);
+    const validade = state.every((key) => key !== '');
+
+    if (validade) {
+      this.setState({ isDisable: false });
+    } else {
+      this.setState({ isDisable: true });
+    }
   }
 
   handleClick = () => {
@@ -30,12 +42,13 @@ class ExpenseForm extends React.Component {
       currency: '',
       method: '',
       tag: '',
+      isDisable: true,
     });
   }
 
   render() {
     const { currencies } = this.props;
-    const { value, description, currency, method, tag } = this.state;
+    const { value, description, currency, method, tag, isDisable } = this.state;
     return (
       <form>
         <Input
@@ -87,6 +100,7 @@ class ExpenseForm extends React.Component {
         <Button
           buttonText="Adicionar despesa"
           onClick={ this.handleClick }
+          disabled={ isDisable }
         />
       </form>
     );

@@ -34,7 +34,7 @@ class TableExpense extends React.Component {
 }
 
 TableExpense.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({

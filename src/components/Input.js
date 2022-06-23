@@ -42,7 +42,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  id: '',
+  id: null,
   labelText: '',
   placeholder: '',
 };
