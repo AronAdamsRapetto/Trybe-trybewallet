@@ -1,9 +1,12 @@
+import fetchCurrency from '../service/fetch';
 import {
   LOGIN,
   FETCH_SUCCESS,
   FETCH_FAIL,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
+  INIT_EDIT_EXPENSE,
+  END_EDIT_EXPENSE,
 } from './actionTypes';
 
 const fetchSuccess = (data) => ({
@@ -18,10 +21,8 @@ const fetchFail = (error) => ({
 
 export const fetchCurrencyApi = () => async (dispatch) => {
   try {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    delete data.USDT;
-    dispatch(fetchSuccess(data));
+    const response = await fetchCurrency();
+    dispatch(fetchSuccess(response));
   } catch (error) {
     dispatch(fetchFail(error));
   }
@@ -39,10 +40,8 @@ const saveExpense = (expense, exchange) => ({
 
 export const fetchExpense = (expense) => async (dispatch) => {
   try {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    delete data.USDT;
-    dispatch(saveExpense(expense, data));
+    const response = await fetchCurrency();
+    dispatch(saveExpense(expense, response));
   } catch (error) {
     dispatch(fetchFail(error));
   }
@@ -51,4 +50,14 @@ export const fetchExpense = (expense) => async (dispatch) => {
 export const removeExpense = (id) => ({
   type: REMOVE_EXPENSE,
   payload: id,
+});
+
+export const editExpense = (id) => ({
+  type: INIT_EDIT_EXPENSE,
+  payload: id,
+});
+
+export const saveEditExpense = (expense) => ({
+  type: END_EDIT_EXPENSE,
+  payload: { ...expense },
 });

@@ -5,7 +5,7 @@ import Input from './Input';
 import Select from './Select';
 import Button from './Button';
 import { paymentMethods, expenseTags } from '../data';
-import { fetchExpense } from '../actions';
+import { fetchExpense, saveEditExpense } from '../actions';
 
 class ExpenseForm extends React.Component {
   state = {
@@ -34,12 +34,18 @@ class ExpenseForm extends React.Component {
   }
 
   handleClick = () => {
-    const { saveExpense } = this.props;
+    const { saveExpense, isEditing, saveEdited } = this.props;
     const { id } = this.state;
     const newState = { ...this.state };
-    delete newState.isDisable;
-    saveExpense(newState);
-
+    if (isEditing) {
+      delete newState.id;
+      delete newState.isDisable;
+      saveEdited(newState);
+    } else {
+      delete newState.isDisable;
+      saveExpense(newState);
+      this.setState({ id: id + 1 });
+    }
     this.setState({
       value: '',
       description: '',
@@ -47,12 +53,11 @@ class ExpenseForm extends React.Component {
       method: '',
       tag: '',
       isDisable: true,
-      id: id + 1,
     });
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, isEditing } = this.props;
     const { value, description, currency, method, tag, isDisable } = this.state;
     return (
       <form>
@@ -103,7 +108,7 @@ class ExpenseForm extends React.Component {
           testId="tag-input"
         />
         <Button
-          buttonText="Adicionar despesa"
+          buttonText={ isEditing ? 'Editar despesa' : 'Adicionar despesa' }
           onClick={ this.handleClick }
           disabled={ isDisable }
         />
@@ -115,14 +120,22 @@ class ExpenseForm extends React.Component {
 ExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   saveExpense: PropTypes.func.isRequired,
+  saveEdited: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool,
+};
+
+ExpenseForm.defaultProps = {
+  isEditing: false,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  isEditing: state.wallet.editor,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveExpense: (state) => dispatch(fetchExpense(state)),
+  saveEdited: (state) => dispatch(saveEditExpense(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions';
+import { editExpense, removeExpense } from '../actions';
 import Button from './Button';
 
 class TableRows extends React.Component {
   handleClick = ({ target: { textContent } }, id) => {
-    const { remove } = this.props;
+    const { remove, edit } = this.props;
 
     if (textContent === 'Excluir') {
       remove(id);
+    }
+    if (textContent === 'Editar') {
+      edit(id);
     }
   }
 
@@ -42,6 +45,7 @@ class TableRows extends React.Component {
           <Button
             buttonText="Editar"
             onClick={ (event) => this.handleClick(event, id) }
+            testId="edit-btn"
           />
           <Button
             buttonText="Excluir"
@@ -65,10 +69,12 @@ TableRows.propTypes = {
     exchangeRates: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
   remove: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   remove: (state) => dispatch(removeExpense(state)),
+  edit: (state) => dispatch(editExpense(state)),
 });
 
 export default connect(null, mapDispatchToProps)(TableRows);

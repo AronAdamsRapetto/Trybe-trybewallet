@@ -3,6 +3,8 @@ import {
   FETCH_FAIL,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
+  INIT_EDIT_EXPENSE,
+  END_EDIT_EXPENSE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -35,6 +37,27 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter(({ id }) => id !== action.payload),
+    };
+  case INIT_EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: true,
+      idToEdit: action.payload,
+    };
+  case END_EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: false,
+      expenses: [
+        ...state.expenses.slice(0, state.idToEdit),
+        {
+          ...action.payload,
+          id: state.idToEdit,
+          exchangeRates: { ...state.expenses[state.idToEdit].exchangeRates },
+        },
+        ...state.expenses.slice(state.idToEdit + 1, state.expenses.length),
+      ],
+      idToEdit: 0,
     };
   default:
     return state;
