@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { userLogin } from '../actions';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import './styleSheet/Login.css';
 
 class Login extends React.Component {
   state = {
@@ -43,8 +44,8 @@ class Login extends React.Component {
   render() {
     const { emailValue, passwordValue, isDisabled } = this.state;
     return (
-      <main>
-        <form>
+      <main className="main-login">
+        <form className="form-login">
           <Input
             type="email"
             placeholder="Digite seu e-mail"
