@@ -40,13 +40,13 @@ class TableRows extends React.Component {
         <td>Real</td>
         <td>
           <Button
-            buttonText="Excluir"
-            onClick={ (event) => this.handleClick(event, id) }
-            data-testid="delete-btn"
-          />
-          <Button
             buttonText="Editar"
             onClick={ (event) => this.handleClick(event, id) }
+          />
+          <Button
+            buttonText="Excluir"
+            onClick={ (event) => this.handleClick(event, id) }
+            testId="delete-btn"
           />
         </td>
       </tr>
