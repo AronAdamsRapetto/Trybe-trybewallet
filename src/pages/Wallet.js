@@ -5,6 +5,7 @@ import { fetchCurrencyApi } from '../actions';
 import Header from '../components/Header';
 import ExpenseForm from '../components/ExpenseForm';
 import TableExpense from '../components/tableExpense';
+import './styleSheet/Wallet.css';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class Wallet extends React.Component {
 
   render() {
     return (
-      <main>
+      <main className="main-wallet">
         <Header />
         <ExpenseForm />
         <TableExpense />

@@ -1,0 +1,16 @@
+.header-container {
+  align-items: center;
+  background-color: #383838;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.user-container {
+  display: flex;
+}
+
+.user-container p {
+  margin: 0 20px;
+}
