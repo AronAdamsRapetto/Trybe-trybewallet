@@ -20,6 +20,7 @@ class Input extends React.Component {
           value={ value }
           data-testid={ testId }
           onChange={ onChange }
+          id={ id }
         >
           {
             options.map((option) => (
@@ -37,7 +38,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  testId: PropTypes.string.isRequired,
+  testId: PropTypes.string,
   id: PropTypes.string,
   labelText: PropTypes.string,
 };
@@ -45,6 +46,7 @@ Input.propTypes = {
 Input.defaultProps = {
   id: '',
   labelText: '',
+  testId: '',
 };
 
 export default Input;
