@@ -2,13 +2,14 @@ export const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de d�
 
 export const expenseTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
-export const headerTable = [
+export const tableHeaders = [
   'Descrição',
   'Tag',
   'Método de pagamento',
   'Valor',
   'Moeda',
-  'Câmbio convertido',
+  'Câmbio utilizado',
+  'Valor convertido',
   'Moeda de conversão',
   'Editar/Excluir',
 ];
