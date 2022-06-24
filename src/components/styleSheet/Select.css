@@ -1,0 +1,5 @@
+.form-expense-select select {
+  color: rgb(30, 80, 130);
+  margin: 0 5px;
+  padding: 8px 0 8px 8px;
+}

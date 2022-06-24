@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styleSheet/Select.css';
 
 class Input extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class Input extends React.Component {
       labelText,
     } = this.props;
     return (
-      <label htmlFor={ id }>
+      <label htmlFor={ id } className="form-expense-select">
         { labelText }
         <select
           name={ name }
