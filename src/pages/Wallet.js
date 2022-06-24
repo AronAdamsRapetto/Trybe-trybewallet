@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCurrencyApi } from '../actions';
 import Header from '../components/Header';
 import ExpenseForm from '../components/ExpenseForm';
-import TableExpense from '../components/tableExpense';
+import TableExpense from '../components/TableExpense';
 import './styleSheet/Wallet.css';
 
 class Wallet extends React.Component {

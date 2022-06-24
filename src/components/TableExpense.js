@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { tableHeaders } from '../data';
 import TableRows from './TableRows';
+import './styleSheet/TableExpense.css';
 
 class TableExpense extends React.Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table>
+      <table className="table-container">
         <thead>
           <tr>
             {
